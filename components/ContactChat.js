@@ -15,7 +15,7 @@ const Contacts = (props) => {
         description={props.message}
         left={props => <Avatar.Image size={64} source={require('../assets/avatar-image.png')} 
         style="margin:20; paddingTop:20"/>}
-        right={props => <List.Icon {...props} icon="check" />}
+        right={props => <List.Icon {...props} icon={props.icon} />}
         onPress = {showChatContent}
     />
     <StatusSeparater />

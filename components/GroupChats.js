@@ -1,22 +1,40 @@
-//for private chats, go to ChatContacts.js
+// This class shows the private chats
+
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import AppHeader from './AppHeader';
-import StatusSeparater from './StatusSeparator';
 import Contacts from './ContactChat';
+import axios from 'axios';
 
 class GroupChats extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            groups: []
+        }
+    }
+    componentDidMount() {
+        axios.get('http://yochat.goproug.com/api/get-all-groups-i-belong-to/1')
+            .then(res => {
+                    const groups = res.data.map(obj => ({group_name: obj.group_name}));
+                    this.setState({groups})
+        });
+    }
     render() {
         return (
-        <View>
-            <AppHeader iconname="menu" subtitle="my groups"/>
-            <Contacts name="BSSE4 2020"  message="drake:  guys partey is so good"/>
-            <StatusSeparater />
-            <Contacts name="BSSM 13-14"  message="mubiru:  members kindly send the money to my number"/>
-            <StatusSeparater />
-            <Contacts name="Pride Of London"  message="+256 79 036668: Creativity"/>
-            <StatusSeparater />
-        </View>
+            <View>
+                <View>
+                <AppHeader iconname="menu" subtitle="Groups"/>
+                </View>
+                <ScrollView>
+                    {this.state.groups.map((prop, key)=>{
+                        return(
+                        <Contacts name={prop.group_name}  message={prop.message} key={key} icon=""/>
+                        );
+                    })}
+                </ScrollView>
+            </View>
+        
         );
     }
 }

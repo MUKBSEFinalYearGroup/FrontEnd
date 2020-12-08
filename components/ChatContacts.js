@@ -1,7 +1,7 @@
 // This class shows the private chats
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import AppHeader from './AppHeader';
 import Contacts from './ContactChat';
 import axios from 'axios';
@@ -26,13 +26,13 @@ class ChatList extends Component {
                 <View>
                 <AppHeader iconname="menu" subtitle="my private chats"/>
                 </View>
-                <View>
+                <ScrollView>
                     {this.state.messages.map((prop, key)=>{
                         return(
-                        <Contacts name={prop.name}  message={prop.message} key={key}/>
+                        <Contacts name={prop.name}  message={prop.message} key={key} icon="check"/>
                         );
                     })}
-                </View>
+                </ScrollView>
             </View>
         
         );
