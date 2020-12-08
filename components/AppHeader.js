@@ -15,13 +15,16 @@ const AppHeader = (props) => {
         }
     };
 
+    const _logOutUser = () => {
+        Actions.login_page()
+    }
     const _handleMore = () => console.log('Shown more');
 
     return (
         <Appbar.Header>
         <Appbar.Action icon={props.iconname} onPress={_openOrCloseMenu} />
         <Appbar.Content title="YoChat"  subtitle={props.subtitle}/>
-        <Appbar.Action icon="lock" onPress={_openOrCloseMenu} />
+        <Appbar.Action icon="lock" onPress={_logOutUser} />
         <Appbar.Action icon="magnify" onPress={_goToSearch} />
         </Appbar.Header>
     );

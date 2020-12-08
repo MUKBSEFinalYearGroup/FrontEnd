@@ -3,21 +3,38 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import AppHeader from './AppHeader';
-import StatusSeparater from './StatusSeparator';
 import Contacts from './ContactChat';
+import axios from 'axios';
 
 class ChatList extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            messages: []
+        }
+    }
+    componentDidMount() {
+        axios.get('http://yochat.goproug.com/api/get-user-chats/1')
+            .then(res => {
+                    const messages = res.data.map(obj => ({contact_number: obj.contact_number, name: obj.name, message: obj.message}));
+                    this.setState({messages})
+        });
+    }
     render() {
         return (
-        <View>
-            <AppHeader iconname="menu" subtitle="my private chats"/>
-            <Contacts name="Napro Bsw"  message="You:  i didn't manage to come"/>
-            <StatusSeparater />
-            <Contacts name="Napro Bsw"  message="You:  i didn't manage to come"/>
-            <StatusSeparater />
-            <Contacts name="Napro Bsw"  message="You:  i didn't manage to come"/>
-            <StatusSeparater />
-        </View>
+            <View>
+                <View>
+                <AppHeader iconname="menu" subtitle="my private chats"/>
+                </View>
+                <View>
+                    {this.state.messages.map((prop, key)=>{
+                        return(
+                        <Contacts name={prop.name}  message={prop.message} key={key}/>
+                        );
+                    })}
+                </View>
+            </View>
+        
         );
     }
 }

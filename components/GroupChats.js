@@ -10,9 +10,11 @@ class GroupChats extends Component {
         return (
         <View>
             <AppHeader iconname="menu" subtitle="my groups"/>
-            <Contacts name="BSSE4 2020"  message="drake:  guys partey is suppurb"/>
+            <Contacts name="BSSE4 2020"  message="drake:  guys partey is so good"/>
             <StatusSeparater />
-            <Contacts name="BSSM 13-14"  message="mubiru:  My nigga it was suppurb"/>
+            <Contacts name="BSSM 13-14"  message="mubiru:  members kindly send the money to my number"/>
+            <StatusSeparater />
+            <Contacts name="Pride Of London"  message="+256 79 036668: Creativity"/>
             <StatusSeparater />
         </View>
         );
