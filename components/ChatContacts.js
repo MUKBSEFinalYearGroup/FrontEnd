@@ -9,15 +9,25 @@ import axios from 'axios';
 class ChatList extends Component {
     constructor(props){
         super(props);
+        this.handleSubmitName = this.onSubmitName.bind(this);
         this.state = {
-            messages: []
+            messages: [],
+            hasName: false
         }
+    }
+
+    onSubmitName(e) { // (5)
+        const name = e.nativeEvent.text;
+        this.setState({
+            name,
+            hasName: true
+        });
     }
     componentDidMount() {
         axios.get('http://yochat.goproug.com/api/get-user-chats/1')
             .then(res => {
-                    const messages = res.data.map(obj => ({contact_number: obj.contact_number, name: obj.name, message: obj.message}));
-                    this.setState({messages})
+                const messages = res.data.map(obj => ({contact_number: obj.contact_number, name: obj.name, message: obj.message, user_id:1}));
+                this.setState({messages})
         });
     }
     render() {
@@ -29,7 +39,7 @@ class ChatList extends Component {
                 <ScrollView>
                     {this.state.messages.map((prop, key)=>{
                         return(
-                        <Contacts name={prop.name}  message={prop.message} key={key} icon="check"/>
+                        <Contacts name={prop.name}  message={prop.message} key={key} icon="check" onSubmitName={ this.handleSubmitName }/>
                         );
                     })}
                 </ScrollView>

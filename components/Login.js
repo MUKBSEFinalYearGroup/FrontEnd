@@ -20,7 +20,9 @@ const Login = ({ navigation }) =>{
             }).then((response)=>{
                 AsyncStorage.multiSet([['token', response.data.token],['contact_number', contact_number], ['password', password] ]).
                 then(
+                AsyncStorage.remove,
                     ()=>{
+                        
                     // if(contact_number !== '+256702913454'){
                     //     navigation.push('chat_screen');
                     // }else{
